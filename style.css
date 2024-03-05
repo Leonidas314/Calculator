@@ -1,0 +1,32 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+table, th, td ,dialog{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+
+    padding: 10px;
+    text-align: left;
+}
+#calcBody{
+    margin-top: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    width: 30vh;
+    height: 50vh;
+}
+#screenCalc{
+    height: 5vh;
+    width: 20vh;
+    border: 1px solid black;
+    border-radius: 9%;
+    margin-bottom: 10vh;
+}
