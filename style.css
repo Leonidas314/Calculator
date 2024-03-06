@@ -1,10 +1,26 @@
+@font-face {
+    font-family: 'Workbench';
+    src: url(fonts/Workbench-Regular-VariableFont_BLED\,SCAN.ttf);  
+}
+@font-face {
+    font-family: 'Work-Sans';
+    src: url(fonts/WorkSans-Italic-VariableFont_wght.ttf);
+}
 body{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: grey;
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), url('imagenes/blueprintBackground.jpeg');
+    
+    background-size: cover; /* Cubre todo el espacio disponible */
+    background-position: center; /* Centra la imagen de fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 100vh; /* Opcional: Asegura que el body tome al menos toda */
 }
 table, th, td {
+    font-family: 'Work-Sans';
     border-collapse: separate;
     border-spacing: 5px;
 }
@@ -44,6 +60,11 @@ th, td {
     background-color:rgb(230, 230, 230);
 }
 #screenCalc{
+    display: flex;
+    justify-content:flex-end ;
+    align-items: center;
+    font-family: 'Workbench';
+    font-size: 4vh;
     height: 15%;
     width: 80%;
     border: 1px solid black;
