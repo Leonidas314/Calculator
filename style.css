@@ -4,14 +4,31 @@ body{
     justify-content: center;
     align-items: center;
 }
-table, th, td ,dialog{
-    border: 1px solid black;
-    border-collapse: collapse;
+table, th, td {
+    border-collapse: separate;
+    border-spacing: 5px;
 }
 th, td {
-
+    color: aliceblue;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 10%;
     padding: 10px;
     text-align: left;
+    width:2.8vw;
+    height:5vh;
+    background-color: rgb(61, 77, 77);
+    text-align: center;
+
+}
+.butom{
+    transition: all 0.3s ease;
+
+}
+.butom:hover{
+    background-color: black;
+    opacity: 55%;
 }
 #calcBody{
     margin-top: 25vh;
@@ -20,13 +37,17 @@ th, td {
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    width: 30vh;
-    height: 50vh;
+    border-radius: 3.5%;
+    width: 33vw;
+    height: 60vh;
+    max-width: 375px;
+    background-color:rgb(230, 230, 230);
 }
 #screenCalc{
-    height: 5vh;
-    width: 20vh;
+    height: 15%;
+    width: 80%;
     border: 1px solid black;
-    border-radius: 9%;
+    border-radius: 8%;
     margin-bottom: 10vh;
+    background-color: rgb(138, 152, 170);
 }
