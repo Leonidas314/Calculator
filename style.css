@@ -24,6 +24,7 @@ table, th, td {
     border-collapse: separate;
     border-spacing: 5px;
 }
+
 th, td {
     color: aliceblue;
     font-size: large;
