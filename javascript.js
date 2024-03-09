@@ -1,6 +1,7 @@
 console.log("Console online");
 const calculador= document.getElementById('calcBody');//Capturar div id:"calcBody"
 const tds =document.querySelectorAll('td');//Captura tds de la tabla
+const simbolNum=document.querySelectorAll('.number, .symbol');
 console.log(tds);
 const pantalla =document.getElementById('screenCalc');//Captura div id:"screenCalc"
 
@@ -17,12 +18,16 @@ tds.forEach(function(elemento){//Para cada tds
     elemento.addEventListener('click',function(elemento){//Al capturar evento click
         this.style.transform= 'scale(0.9)';//Cambio a escala 0.9
         setTimeout(() => {//Vuelvo a escala a los 150ms
-            this.style.transform = 'scale)';
+            this.style.transform = 'scale(1)';
         }, 150);
         if (ceroDefault==true){
             pantalla.innerText="";
             ceroDefault=false;
         }
+    })
+})
+simbolNum.forEach(function(elemento){
+    elemento.addEventListener('click',function(elemento){
         const contenidoBoton=this.innerText;//Capturo el contenido alfanumerico de td (boton)
         screenString=screenString+contenidoBoton;
         console.log(screenString);
@@ -33,7 +38,6 @@ tds.forEach(function(elemento){//Para cada tds
 
     })
 })
-
 const clearBoton = document.getElementById('clearBotton');
 
 clearBoton.addEventListener('click',function(){
