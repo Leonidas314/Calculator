@@ -1,17 +1,24 @@
-console.log("Console online");
+//Proyecto: Calculator
+//Autor: Dellafiore Leon Lucas
+//Descripción: Calculadora Web... 
+
+//-------------------Variables---------------------------------------------
+
 const calculador= document.getElementById('calcBody');//Capturar div id:"calcBody"
 const tds =document.querySelectorAll('td');//Captura tds de la tabla
-const simbolNum=document.querySelectorAll('.number, .symbol');
-console.log(tds);
+const simbolNum=document.querySelectorAll('.number, .symbol');//Captura 2 clases
 const pantalla =document.getElementById('screenCalc');//Captura div id:"screenCalc"
+var ceroDefault = true;
+var screenString = "";//Inicialización
+const equalButom= document.getElementById('equalBotton');//Capturar boton =
+const symbols = document.getElementsByClassName('symbol');//Captura boton clases symbol 
+const clearBoton = document.getElementById('clearBotton');
 
 //Necesito separar las acciones de efectos visuales de las acciones con funcionalidades??
-//Usar estrucutras condicionales para diferenciar funcionalidades de los botones??
+//Usar estrucutras condicionales para diferenciar funcionalidades de los botones?? 0 bien capturar por separado los diferentes botones y crear modulos separados para cad funcionalidad
 
 
 
-var ceroDefault = true;
-var screenString = "";
 
 //Visual effects to buttons, concatenate string on screen with buttons content
 tds.forEach(function(elemento){//Para cada tds
@@ -26,6 +33,8 @@ tds.forEach(function(elemento){//Para cada tds
         }
     })
 })
+
+//Print on screen a string with key content
 simbolNum.forEach(function(elemento){
     elemento.addEventListener('click',function(elemento){
         const contenidoBoton=this.innerText;//Capturo el contenido alfanumerico de td (boton)
@@ -38,8 +47,9 @@ simbolNum.forEach(function(elemento){
 
     })
 })
-const clearBoton = document.getElementById('clearBotton');
 
+
+//Clear screen
 clearBoton.addEventListener('click',function(){
     pantalla.innerText="";
     pantalla.innerText="0";
@@ -55,8 +65,8 @@ clearBoton.addEventListener('click',function(){
 
 //I need to check that if at both sides of each mathematical symbol there´s only numbesr, in order to have an expression mathematically logical, this is, for example: 2+2 is fine, +3*/ isn´t.
 
-const equalButom= document.getElementById('equalBotton');
-const symbols = document.getElementsByClassName('symbol');
+
+//I need to disable the screen print functionality  if an SYNTHAX ERROR happens 
 equalButom.addEventListener('click',function(){
     let screenL=screenString.length
     for (let i = 0; i < screenString.length; i++) {
