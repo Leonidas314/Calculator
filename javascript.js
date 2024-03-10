@@ -47,7 +47,6 @@ simbolNum.forEach(function(elemento){
             console.log(screenString);
             const textoNodo =document.createTextNode(contenidoBoton);//Creo el nodo con el contenido capturado
             pantalla.appendChild(textoNodo)//creo un nodo nuevo "hijo" de pantalla
-            console.log(screenString.length)
             console.log(disableScreen)
     
         }
@@ -76,12 +75,21 @@ clearBoton.addEventListener('click',function(){
 
 //I need to disable the screen print functionality  if an SYNTHAX ERROR happens:
 equalButom.addEventListener('click',function(){
-    for (let i = 0; i < screenString.length; i++) {
-       if(screenString[0]=="/"||screenString[0]=="*"||screenString[0]=="-"||screenString[0]=="+"/*||screenString[screenL]=="/"||screenString[screenL-1]=="*"||screenString[screenL]=="-"||screenString[screenL]=="+"*/){
+        console.log("click on equal key")
+        console.log(screenString.length)
+
+       if(screenString[0]=="/"||screenString[0]=="*"||screenString[0]=="-"||screenString[0]=="+"){
         pantalla.innerText="SYNTHAX ERROR";
-        screenString="";
         disableScreen=true;
-        console.log(disableScreen);
+        console.log(screenString.length)
+
+       }else
+       if(screenString.length>1 &&  (screenString[screenString.length-1]=="*"||screenString[screenString.length-1]=="+"|| screenString[screenString.length-1]=="-"|| screenString[screenString.length-1]=="/")){
+            pantalla.innerText="SYNTHAX ERROR";
+            disableScreen=true;
+            console.log(screenString.length)
+            console.log(screenString[screenString.length]);
        }
-    }
+       console.log(screenString.length)
+
 })
