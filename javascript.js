@@ -2,17 +2,21 @@
 //Autor: Dellafiore Leon Lucas
 //Descripción: Calculadora Web... 
 
-//-------------------Variables---------------------------------------------
+//-------------------Variables y elementos capturados del DOM---------------------------------------------
 
 const calculador= document.getElementById('calcBody');//Capturar div id:"calcBody"
 const tds =document.querySelectorAll('td');//Captura tds de la tabla
-const simbolNum=document.querySelectorAll('.number, .symbol');//Captura 2 clases
+let simbolNum=document.querySelectorAll('.number, .symbol');//Captura 2 clases
 const pantalla =document.getElementById('screenCalc');//Captura div id:"screenCalc"
 var ceroDefault = true;
 var screenString = "";//Inicialización
 const equalButom= document.getElementById('equalBotton');//Capturar boton =
 const symbols = document.getElementsByClassName('symbol');//Captura boton clases symbol 
 const clearBoton = document.getElementById('clearBotton');
+
+
+var disableScreen=false;
+console.log(disableScreen)
 
 //Necesito separar las acciones de efectos visuales de las acciones con funcionalidades??
 //Usar estrucutras condicionales para diferenciar funcionalidades de los botones?? 0 bien capturar por separado los diferentes botones y crear modulos separados para cad funcionalidad
@@ -36,16 +40,19 @@ tds.forEach(function(elemento){//Para cada tds
 
 //Print on screen a string with key content
 simbolNum.forEach(function(elemento){
-    elemento.addEventListener('click',function(elemento){
-        const contenidoBoton=this.innerText;//Capturo el contenido alfanumerico de td (boton)
-        screenString=screenString+contenidoBoton;
-        console.log(screenString);
-
-        const textoNodo =document.createTextNode(contenidoBoton);//Creo el nodo con el contenido capturado
-        pantalla.appendChild(textoNodo)//creo un nodo nuevo "hijo" de pantalla
-        console.log(screenString.length)
-
+    elemento.addEventListener('click',function(elemento ){
+        if(disableScreen==false){
+            const contenidoBoton=this.innerText;//Capturo el contenido alfanumerico de td (boton)
+            screenString=screenString+contenidoBoton;
+            console.log(screenString);
+            const textoNodo =document.createTextNode(contenidoBoton);//Creo el nodo con el contenido capturado
+            pantalla.appendChild(textoNodo)//creo un nodo nuevo "hijo" de pantalla
+            console.log(screenString.length)
+            console.log(disableScreen)
+    
+        }
     })
+
 })
 
 
@@ -55,6 +62,7 @@ clearBoton.addEventListener('click',function(){
     pantalla.innerText="0";
     screenString="";
     ceroDefault=true;
+    disableScreen=false;
 })
 
 //Analysis
@@ -66,14 +74,14 @@ clearBoton.addEventListener('click',function(){
 //I need to check that if at both sides of each mathematical symbol there´s only numbesr, in order to have an expression mathematically logical, this is, for example: 2+2 is fine, +3*/ isn´t.
 
 
-//I need to disable the screen print functionality  if an SYNTHAX ERROR happens 
+//I need to disable the screen print functionality  if an SYNTHAX ERROR happens:
 equalButom.addEventListener('click',function(){
-    let screenL=screenString.length
     for (let i = 0; i < screenString.length; i++) {
        if(screenString[0]=="/"||screenString[0]=="*"||screenString[0]=="-"||screenString[0]=="+"/*||screenString[screenL]=="/"||screenString[screenL-1]=="*"||screenString[screenL]=="-"||screenString[screenL]=="+"*/){
         pantalla.innerText="SYNTHAX ERROR";
         screenString="";
-        console.log(screenL);
+        disableScreen=true;
+        console.log(disableScreen);
        }
     }
 })
