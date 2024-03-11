@@ -76,15 +76,14 @@ clearBoton.addEventListener('click',function(){
 //I need to disable the screen print functionality  if an SYNTHAX ERROR happens:
 equalButom.addEventListener('click',function(){
         console.log("click on equal key")
-        console.log(screenString.length)
+        console.log(screenString.charCodeAt(0));
 
-       if(screenString[0]=="/"||screenString[0]=="*"||screenString[0]=="-"||screenString[0]=="+"){
+       if(screenString.charCodeAt(0)<48 || screenString.charCodeAt(0)>57){
         pantalla.innerText="SYNTHAX ERROR";
         disableScreen=true;
         console.log(screenString.length)
-
        }else
-       if(screenString.length>1 &&  (screenString[screenString.length-1]=="*"||screenString[screenString.length-1]=="+"|| screenString[screenString.length-1]=="-"|| screenString[screenString.length-1]=="/")){
+       if(screenString.charCodeAt(screenString.length-1)<48 || screenString.charCodeAt(screenString.length-1)>57){
             pantalla.innerText="SYNTHAX ERROR";
             disableScreen=true;
             console.log(screenString.length)
