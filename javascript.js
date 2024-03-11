@@ -91,11 +91,9 @@ equalButom.addEventListener('click',function(){
        }else
        if(screenString.length>2){
             for(let i=1;i<screenString.length-1;i++){
-                if(screenString[i]=="/"||screenString[i]=="*"||screenString[i]=="-"||screenString[i]=="+"){
-                    if(screenString[i-1]=="/"||screenString[i-1]=="*"||screenString[i-1]=="-"||screenString[i-1]=="+"){
-                        pantalla.innerText="SYNTHAX ERROR";
-                        disableScreen=true;
-                    }
+                if((screenString.charCodeAt(i)<48 || screenString.charCodeAt(i)>57)&&(screenString.charCodeAt(i-1)<48 || screenString.charCodeAt(i-1)>57)){
+                    pantalla.innerText="SYNTHAX ERROR";
+                    disableScreen=true;
                 }
             }
        }
