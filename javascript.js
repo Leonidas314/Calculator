@@ -16,7 +16,6 @@ const clearBoton = document.getElementById('clearBotton');
 
 
 var disableScreen=false;
-console.log(disableScreen)
 
 //Necesito separar las acciones de efectos visuales de las acciones con funcionalidades??
 //Usar estrucutras condicionales para diferenciar funcionalidades de los botones?? 0 bien capturar por separado los diferentes botones y crear modulos separados para cad funcionalidad
@@ -44,10 +43,8 @@ simbolNum.forEach(function(elemento){
         if(disableScreen==false){
             const contenidoBoton=this.innerText;//Capturo el contenido alfanumerico de td (boton)
             screenString=screenString+contenidoBoton;
-            console.log(screenString);
             const textoNodo =document.createTextNode(contenidoBoton);//Creo el nodo con el contenido capturado
             pantalla.appendChild(textoNodo)//creo un nodo nuevo "hijo" de pantalla
-            console.log(disableScreen)
     
         }
     })
@@ -76,18 +73,13 @@ clearBoton.addEventListener('click',function(){
 //I need to disable the screen print functionality  if an SYNTHAX ERROR happens:
 equalButom.addEventListener('click',function(){
         console.log("click on equal key")
-        console.log(screenString.charCodeAt(0));
-
        if(screenString.charCodeAt(0)<48 || screenString.charCodeAt(0)>57){
         pantalla.innerText="SYNTHAX ERROR";
         disableScreen=true;
-        console.log(screenString.length)
        }else
        if(screenString.charCodeAt(screenString.length-1)<48 || screenString.charCodeAt(screenString.length-1)>57){
             pantalla.innerText="SYNTHAX ERROR";
             disableScreen=true;
-            console.log(screenString.length)
-            console.log(screenString[screenString.length]);
        }else
        if(screenString.length>2){
             for(let i=1;i<screenString.length-1;i++){
@@ -96,7 +88,20 @@ equalButom.addEventListener('click',function(){
                     disableScreen=true;
                 }
             }
+            if (disableScreen== false){
+                let aux = 0; //Auxliar donde guardar primer posicion del substring
+                for(i=0; i<screenString.length;i++){
+                    if(screenString[i]=="+" || screenString[i]=="-" || i==screenString.length-1){
+                        console.log("Signo"+ screenString[i]+"En poscisicon"+(i+1));
+                        console.log(screenString.substring(aux,i))
+                        
+                        aux=i+1;
+                    }
+                    console.log(screenString.substring(aux,i+1))
+
+                }
+            }
        }
-       console.log(screenString.length)
+       console.log("Largo string"+screenString.length)
 
 })
