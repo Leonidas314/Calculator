@@ -90,15 +90,20 @@ equalButom.addEventListener('click',function(){
             }
             if (disableScreen== false){
                 let aux = 0; //Auxliar donde guardar primer posicion del substring
+                var vectorIndices= [];
                 for(i=0; i<screenString.length;i++){
-                    if(screenString[i]=="+" || screenString[i]=="-" || i==screenString.length-1){
-                        console.log("Signo"+ screenString[i]+"En poscisicon"+(i+1));
-                        console.log(screenString.substring(aux,i))
-                        
-                        aux=i+1;
-                    }
-                    console.log(screenString.substring(aux,i+1))
+                    if(screenString[i]=="+" || screenString[i]=="-"){
 
+                        vectorIndices[aux]=i;
+                        aux=aux+1;
+                        //console.log("Signo"+ screenString[i]+"En poscisicon"+(i+1));
+                    }
+                    console.log(vectorIndices);
+                }
+                for(i=0;i<vectorIndices.length;i++){
+                    if(i==vectorIndices.length-1){
+                        console.log(screenString.slice(-vectorIndices[i]));
+                    }
                 }
             }
        }
