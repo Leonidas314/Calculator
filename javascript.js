@@ -89,6 +89,8 @@ equalButom.addEventListener('click',function(){
                 }
             }
             if (disableScreen== false){
+
+                //*-------------------------------------------------------------------------- */
                 let aux = 0; //Auxliar donde guardar primer posicion del substring
                 var vectorIndices= [];
                 for(i=0; i<screenString.length;i++){
@@ -100,13 +102,15 @@ equalButom.addEventListener('click',function(){
                     }
                     console.log(vectorIndices);
                 }
-                for(i=0;i<vectorIndices.length;i++){
-                    if(i==vectorIndices.length-1){
-                        console.log(screenString.slice(-vectorIndices[i]));
+                for(i=0;i<vectorIndices.length;i++){//Recorrer vectorIndices
+                    if(i==vectorIndices.length-1){//Si es el ultimo elemento del vector (posicion del ultimo operador + o -)
+                        let n=screenString.length-vectorIndices[i];
+                        console.log(n,i)
+                        console.log(screenString.slice(-n+1))
                     }
                 }
             }
        }
-       console.log("Largo string"+screenString.length)
+       console.log("Largo string "+screenString.length)
 
 })
