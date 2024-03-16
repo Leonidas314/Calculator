@@ -72,48 +72,53 @@ clearBoton.addEventListener('click',function(){
 
 //I need to disable the screen print functionality  if an SYNTHAX ERROR happens:
 equalButom.addEventListener('click',function(){
-        console.log("click on equal key")
-       if(screenString.charCodeAt(0)<48 || screenString.charCodeAt(0)>57){
+    console.log("click on equal key")
+   if(screenString.charCodeAt(0)<48 || screenString.charCodeAt(0)>57){
+    pantalla.innerText="SYNTHAX ERROR";
+    disableScreen=true;
+   }else
+   if(screenString.charCodeAt(screenString.length-1)<48 || screenString.charCodeAt(screenString.length-1)>57){
         pantalla.innerText="SYNTHAX ERROR";
         disableScreen=true;
-       }else
-       if(screenString.charCodeAt(screenString.length-1)<48 || screenString.charCodeAt(screenString.length-1)>57){
-            pantalla.innerText="SYNTHAX ERROR";
-            disableScreen=true;
-       }else
-       if(screenString.length>2){
-            for(let i=1;i<screenString.length-1;i++){
-                if((screenString.charCodeAt(i)<48 || screenString.charCodeAt(i)>57)&&(screenString.charCodeAt(i-1)<48 || screenString.charCodeAt(i-1)>57)){
-                    pantalla.innerText="SYNTHAX ERROR";
-                    disableScreen=true;
+   }else
+   if(screenString.length>2){
+        for(let i=1;i<screenString.length-1;i++){
+            if((screenString.charCodeAt(i)<48 || screenString.charCodeAt(i)>57)&&(screenString.charCodeAt(i-1)<48 || screenString.charCodeAt(i-1)>57)){
+                pantalla.innerText="SYNTHAX ERROR";
+                disableScreen=true;
+            }
+        }
+        if (disableScreen== false){
+            var termVector=[];
+            let auxTerm=0;
+            //*-------------------------------------------------------------------------- */
+            let aux = 0; //Auxliar donde guardar primer posicion del substring
+            var vectorIndices= [];
+            for(i=0; i<screenString.length;i++){
+                if(screenString[i]=="+" || screenString[i]=="-"){
+                    vectorIndices[aux]=i;
+                    aux=aux+1;
                 }
             }
-            if (disableScreen== false){
-
-                //*-------------------------------------------------------------------------- */
-                let aux = 0; //Auxliar donde guardar primer posicion del substring
-                var vectorIndices= [];
-                for(i=0; i<screenString.length;i++){
-                    if(screenString[i]=="+" || screenString[i]=="-"){
-                        vectorIndices[aux]=i;
-                        aux=aux+1;
-                    }
+            console.log(vectorIndices);
+            aux=0;
+            for(i=0;i<vectorIndices.length;i++){//Recorrer vectorIndices
+                if(i<=vectorIndices.length-1){//Aislar los length-1 terminos
+                    termVector[auxTerm]=parseInt(screenString.substring(aux,vectorIndices[i]));
+                    auxTerm++;
+                    console.log(screenString.substring(aux,vectorIndices[i]))
+                    aux=vectorIndices[i]+1;
                 }
-                console.log(vectorIndices);
-                aux=0;
-                for(i=0;i<vectorIndices.length;i++){//Recorrer vectorIndices
-                    if(i<=vectorIndices.length-1){
-                        console.log(screenString.substring(aux,vectorIndices[i]))
-                        aux=vectorIndices[i]+1;
-                    }
-                    if(i==vectorIndices.length-1){//Si es el ultimo elemento del vector (posicion del ultimo operador + o -)
-                        let n=screenString.length-vectorIndices[i];
-                        //console.log(n,i)
-                        console.log(screenString.slice(-n+1))
-                    }
+                if(i==vectorIndices.length-1){//Si es el ultimo elemento del vector (posicion del ultimo operador + o -)
+                    let n=screenString.length-vectorIndices[i];
+                    //console.log(n,i)
+                    termVector[auxTerm]=parseInt(screenString.slice(-n+1));
+                    console.log(screenString.slice(-n+1))
                 }
             }
-       }
-       console.log("Largo string "+screenString.length)
+        }
+   }
+   console.log(termVector);
 
+   console.log("Largo string "+screenString.length)
 })
