@@ -88,7 +88,7 @@ equalButom.addEventListener('click',function(){
                 disableScreen=true;
             }
         }
-        if (disableScreen== false){
+        if (disableScreen== false){//La expresion matematica se puede calcular
             var termVector=[];
             let auxTerm=0;
             //*-------------------------------------------------------------------------- */
@@ -116,9 +116,18 @@ equalButom.addEventListener('click',function(){
                     console.log(screenString.slice(-n+1))
                 }
             }
+            for(let j=0;j<vectorIndices.length;j++){
+                if(screenString[vectorIndices[j]]==='-'){
+                    termVector[j+1]=(-1)*termVector[j+1];
+                }
+            }
+
+            var suma = termVector.reduce((acumulador, valorActual) => {
+                return acumulador + valorActual;
+            }, 0); // El 0 es un valor inicial para el acumulador
         }
    }
-   console.log(termVector);
+   console.log("Terminos: "+termVector + " Sumatoria: "+ suma);
 
    console.log("Largo string "+screenString.length)
 })
