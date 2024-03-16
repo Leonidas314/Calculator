@@ -95,17 +95,20 @@ equalButom.addEventListener('click',function(){
                 var vectorIndices= [];
                 for(i=0; i<screenString.length;i++){
                     if(screenString[i]=="+" || screenString[i]=="-"){
-
                         vectorIndices[aux]=i;
                         aux=aux+1;
-                        //console.log("Signo"+ screenString[i]+"En poscisicon"+(i+1));
                     }
-                    console.log(vectorIndices);
                 }
+                console.log(vectorIndices);
+                aux=0;
                 for(i=0;i<vectorIndices.length;i++){//Recorrer vectorIndices
+                    if(i<=vectorIndices.length-1){
+                        console.log(screenString.substring(aux,vectorIndices[i]))
+                        aux=vectorIndices[i]+1;
+                    }
                     if(i==vectorIndices.length-1){//Si es el ultimo elemento del vector (posicion del ultimo operador + o -)
                         let n=screenString.length-vectorIndices[i];
-                        console.log(n,i)
+                        //console.log(n,i)
                         console.log(screenString.slice(-n+1))
                     }
                 }
