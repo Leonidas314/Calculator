@@ -1,13 +1,24 @@
 //Function that reccibe a string and return a list of the numeric values 
 
 let string1="55*2/5*4/9*45"
-console.log("String de prueba:",string1)
-//The next two functions filters the numeric values and the operators
+let string2="86*10/2+2/11+5*34-10"
+console.log("String de prueba:",string2)
+
+//Function that filter the type expresion likely 
+function listProdCocc(string){
+return string.match(/\d+|[*/]|\d+/gy).join('');//This regular expression takes the mathematical expression only with numeric values and "*" "/" symbols, this ,between "+" "-" operators 
+}
+var expressionVector= listProdCocc(string2)
+console.log(expressionVector)
+
+
+
+//The next two functions filters the numeric values and the operators with regular expressions
 function listNumValues (string){
     var numbers= string.match(/\d+/g);
     return numbers.map(numbers => parseFloat(numbers));
 }
-
+//Funcion that returns the non numeric values of the string
 function listOperator (string){
     return string.match(/[^\d]/g);
 }
@@ -41,14 +52,14 @@ function removeFirstElem(opList){
 //I need a function that evalues two firts numbers and fisrt operator on the numList and opList
 
 function evalExpression(nlist,olist){
-    console.log("Lista Numerica:",nlist,"\n", "Lista operadores:",olist);
+    //console.log("Lista Numerica:",nlist,"\n", "Lista operadores:",olist);
     if (nlist.length==1){
         return nlist[0];
     }else{
         //Obtain objects with removed elements to be evaluated and lists
         var nObjt=removeTwoElem(nlist);
         var opObjt=removeFirstElem(olist);
-        console.log("Objeto Numerico:","\n",nObjt,"\n","Objeto operador:","\n",opObjt)
+        //console.log("Objeto Numerico:","\n",nObjt,"\n","Objeto operador:","\n",opObjt)
         var aux =eval(nObjt.elementoRemovido[0]+opObjt.elementoRemovido+nObjt.elementoRemovido[1]);
         nlist=[aux,...nlist];
         olist=opObjt.opList;
@@ -57,7 +68,7 @@ function evalExpression(nlist,olist){
   
 }
 
-function reductionExpresion(expression){
+function reductionExpression(expression){
     if(expression.length==1){
         return parseFloat(expression[0]);
     }else{
@@ -70,5 +81,8 @@ function reductionExpresion(expression){
 
 
 }
-var resultado=reductionExpresion(string1);
-console.log("resultado final=",resultado)
+
+let reducedExpressions = expressionVector.map(reductionExpression)
+console.log(reducedExpressions)
+/*var resultado=reductionExpression(string1);
+console.log("resultado final=",resultado)*/

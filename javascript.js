@@ -121,6 +121,7 @@ equalButom.addEventListener('click',function(){
                     termVector[j+1]=(-1)*termVector[j+1];
                 }
             }
+            //Sumatoria de los elementos del vector de terminos 
             var suma = termVector.reduce((acumulador, valorActual) => {
                 return acumulador + valorActual;
             }, 0); // El 0 es un valor inicial para el acumulador
