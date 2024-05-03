@@ -8,9 +8,8 @@ console.log("String de prueba:",string2)
 function listProdCocc(string){
 return string.match(/\d+|[*/]|\d+/gy).join('');//This regular expression takes the mathematical expression only with numeric values and "*" "/" symbols, this ,between "+" "-" operators 
 }
-var expressionVector= listProdCocc(string2)
-console.log(expressionVector)
-
+var expressionVector= listProdCocc(string2);
+console.log("Vector:" + expressionVector);
 
 
 //The next two functions filters the numeric values and the operators with regular expressions
@@ -18,6 +17,7 @@ function listNumValues (string){
     var numbers= string.match(/\d+/g);
     return numbers.map(numbers => parseFloat(numbers));
 }
+
 //Funcion that returns the non numeric values of the string
 function listOperator (string){
     return string.match(/[^\d]/g);
@@ -81,8 +81,29 @@ function reductionExpression(expression){
 
 
 }
+var reducir = reductionExpression(expressionVector);
+console.log ("Primer termino reducido:"+ reducir)
 
-let reducedExpressions = expressionVector.map(reductionExpression)
-console.log(reducedExpressions)
-/*var resultado=reductionExpression(string1);
-console.log("resultado final=",resultado)*/
+//Funcion que recibe una expresion y devuelve a la misma sin el primer termino
+function tailExpresion (string, regX){
+ const regex = string.match(/\d+|[*/]|\d+/gy).join('');
+ console.log(regex)
+ return string.replace(regex,''); //Ready to go!
+}
+
+console.log("tailExpression: "+tailExpresion(string2))
+//Funcion que utilice la reduccion y vuelva a llamarse con el siguiente termino del string
+
+function Calculator (expression){
+    const regexNum = /^[0-9]+$/;
+    if(regexNum.test(expression)){
+        return parseFloat(expression)
+    }else if (expression[0]=='+'){
+        return reductionExpression(expression) + Calculator(expression.replace(expression[0],''));
+    }
+    else if (expression[0]=='-'){
+        return reductionExpression(expression) - Calculator(expression.replace(expression[0],''));
+    }
+}
+
+console.log(Calculator(string2))
