@@ -13,7 +13,7 @@ var screenString = "";//Inicialización
 const equalButom= document.getElementById('equalBotton');//Capturar boton =
 const symbols = document.getElementsByClassName('symbol');//Captura boton clases symbol 
 const clearBoton = document.getElementById('clearBotton');
-
+const DELboton= document.getElementById('DELbotton');
 
 var disableScreen=false;
 
@@ -221,9 +221,19 @@ equalButom.addEventListener('click',function(){
             var suma = termVector.reduce((acumulador, valorActual) => {
                 return acumulador + valorActual;
             }, 0); // El 0 es un valor inicial para el acumulador
+            pantalla.innerText="";
+            pantalla.innerText=suma;
         }
    }
    console.log("Terminos: "+termVector + " Sumatoria: "+ suma);
-
    console.log("Largo string "+screenString.length)
+})
+
+//Next to do: DEL butom ans butom and register operations
+
+DELboton.addEventListener('click',function(){
+    console.log("click on DEL boton");
+    pantalla.innerText="";
+    screenString=screenString.slice(0,-1);
+    pantalla.innerText=screenString;
 })
