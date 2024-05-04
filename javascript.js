@@ -21,6 +21,98 @@ var disableScreen=false;
 //Usar estrucutras condicionales para diferenciar funcionalidades de los botones?? 0 bien capturar por separado los diferentes botones y crear modulos separados para cad funcionalidad
 
 
+//--------------------Funciones------------------//////
+//Function that filter the type expresion likely 
+function listProdCocc(string){
+return string.match(/\d+|[*/]|\d+/gy).join('');//This regular expression takes the mathematical expression only with numeric values and "*" "/" symbols, this ,between "+" "-" operators 
+}
+//var expressionVector= listProdCocc(string2);
+//console.log("Vector:" + expressionVector);
+
+
+//The next two functions filters the numeric values and the operators with regular expressions
+function listNumValues (string){
+    var numbers= string.match(/\d+/g);
+    return numbers.map(numbers => parseFloat(numbers));
+}
+
+//Funcion that returns the non numeric values of the string
+function listOperator (string){
+    return string.match(/[^\d]/g);
+}
+//This function recibes a Numeric list and returns an object with the first two elements of the list and this without them 
+function removeTwoElem(numList){
+    if (numList.length === 0) {
+        //If the list its empty returns an objet with an error mensage
+        return { numList: [], elementoRemovido: null, error: "La lista está vacía" };
+    } else {
+        // Remove first element an save it in a variable
+        const elementoRemovido = numList.splice(0,2);
+        //returns an object with the first element and a list without it
+        return { numList: numList, elementoRemovido: elementoRemovido, error: null };
+    }
+
+}
+//This function recibes a list with operators and returns the firstone and the list without it in a object 
+function removeFirstElem(opList){
+    if (opList.length===0) {
+        //If the list its empty returns an objet with an error mensage
+        return { opList: [], elementoRemovido: null, error: "La lista está vacía" };
+    } else {
+        // Remove first element an save it in a variable
+        const elementoRemovido = opList.shift();
+        //returns an object with the first element and a list without it
+        return { opList: opList, elementoRemovido: elementoRemovido, error: null };
+    }
+
+}
+
+//I need a function that evalues two firts numbers and fisrt operator on the numList and opList
+
+function evalExpression(nlist,olist){
+    //console.log("Lista Numerica:",nlist,"\n", "Lista operadores:",olist);
+    if (nlist.length==1){
+        return nlist[0];
+    }else{
+        //Obtain objects with removed elements to be evaluated and lists
+        var nObjt=removeTwoElem(nlist);
+        var opObjt=removeFirstElem(olist);
+        //console.log("Objeto Numerico:","\n",nObjt,"\n","Objeto operador:","\n",opObjt)
+        var aux =eval(nObjt.elementoRemovido[0]+opObjt.elementoRemovido+nObjt.elementoRemovido[1]);
+        nlist=[aux,...nlist];
+        olist=opObjt.opList;
+         return evalExpression(nlist,olist);////Recursion////
+    }
+  
+}
+
+function reductionExpression(expression){
+    if(expression.length==1){
+        return parseFloat(expression[0]);
+    }else{
+        //Funcion que recibe una expresion dos listas y devueve su reduccion 
+
+        //Mostrar lista de numeros y lista de operadores
+
+        return evalExpression(listNumValues(expression),listOperator(expression));
+    }
+
+
+}
+//var reducir = reductionExpression(expressionVector);
+//console.log ("Primer termino reducido:"+ reducir)
+
+//Funcion que recibe una expresion y devuelve a la misma sin el primer termino
+function tailExpresion (string){
+    if(string==[]){
+        return 0;
+    }else{
+        const regex = string.match(/\|[+-]|\d+|[*/]|\d+/gy).join('');
+        console.log(regex)
+        return string.replace(regex,''); //Ready to go!
+    }
+}
+
 
 
 //Visual effects to buttons, concatenate string on screen with buttons content
@@ -100,25 +192,29 @@ equalButom.addEventListener('click',function(){
                     aux=aux+1;
                 }
             }
-            console.log(vectorIndices);
+            console.log(vectorIndices,vectorIndices.length);
             aux=0;
-            for(i=0;i<vectorIndices.length;i++){//Recorrer vectorIndices
-                if(i<=vectorIndices.length-1){//Aislar los length-1 terminos
-                    termVector[auxTerm]=parseInt(screenString.substring(aux,vectorIndices[i]));
-                    auxTerm++;
-                    console.log(screenString.substring(aux,vectorIndices[i]))
-                    aux=vectorIndices[i]+1;
+            if(vectorIndices.length==0){
+                termVector.push(reductionExpression(screenString))
+            }else{
+
+                for(i=0;i<vectorIndices.length;i++){//Recorrer vectorIndices
+                    if(i<=vectorIndices.length-1){//Aislar los length-1 terminos
+                        termVector[auxTerm]=reductionExpression(screenString.substring(aux,vectorIndices[i]));
+                        auxTerm++;
+                        console.log(screenString.substring(aux,vectorIndices[i]))
+                        aux=vectorIndices[i]+1;
+                    }
+                    if(i==vectorIndices.length-1){//Si es el ultimo elemento del vector (posicion del ultimo operador + o -)
+                        let n=screenString.length-vectorIndices[i];
+                        termVector[auxTerm]=reductionExpression(screenString.slice(-n+1));
+                        console.log(screenString.slice(-n+1))
+                    }
                 }
-                if(i==vectorIndices.length-1){//Si es el ultimo elemento del vector (posicion del ultimo operador + o -)
-                    let n=screenString.length-vectorIndices[i];
-                    //console.log(n,i)
-                    termVector[auxTerm]=parseInt(screenString.slice(-n+1));
-                    console.log(screenString.slice(-n+1))
-                }
-            }
-            for(let j=0;j<vectorIndices.length;j++){
-                if(screenString[vectorIndices[j]]==='-'){
-                    termVector[j+1]=(-1)*termVector[j+1];
+                for(let j=0;j<vectorIndices.length;j++){
+                    if(screenString[vectorIndices[j]]==='-'){
+                        termVector[j+1]=(-1)*termVector[j+1];
+                    }
                 }
             }
             //Sumatoria de los elementos del vector de terminos 
