@@ -14,7 +14,7 @@ const equalButom= document.getElementById('equalBotton');//Capturar boton =
 const symbols = document.getElementsByClassName('symbol');//Captura boton clases symbol 
 const clearBoton = document.getElementById('clearBotton');
 const DELboton= document.getElementById('DELbotton');
-var cursor = document.getElementById('cursor')
+//var cursor = document.getElementById('cursor')
 var disableScreen=false;
 
 //Necesito separar las acciones de efectos visuales de las acciones con funcionalidades??
@@ -115,10 +115,14 @@ function tailExpresion (string){
 function titilarElemento() {
     cursor.classList.toggle('titilar');
 }
-titilarElemento();
-
-
-
+function restaurarElemTitilante(){
+    var cursor = document.createElement("p")
+    cursor.setAttribute("class","titilar")
+    cursor.textContent= "|"
+    pantalla.appendChild(cursor);
+    titilarElemento();
+}
+titilarElemento();//Esta funcion hace titilar al text Contenx de la tag <p> creada por defecto en html
 //Visual effects to buttons, concatenate string on screen with buttons content
 tds.forEach(function(elemento){//Para cada tds
     elemento.addEventListener('click',function(elemento){//Al capturar evento click
@@ -154,12 +158,12 @@ clearBoton.addEventListener('click',function(){
     screenString="";
     ceroDefault=true;
     disableScreen=false;
-    var cursor = document.createElement("p")
-    cursor.setAttribute("class","titilar")
-    cursor.textContent= "|"
-    pantalla.appendChild(cursor);
-    titilarElemento();
-
+    //var cursor = document.createElement("p")
+    //cursor.setAttribute("class","titilar")
+    //cursor.textContent= "|"
+    //pantalla.appendChild(cursor);
+    //titilarElemento();
+    restaurarElemTitilante();
 })
 
 
@@ -239,11 +243,12 @@ equalButom.addEventListener('click',function(){
    console.log("Largo string "+screenString.length)
 })
 
-//Next to do: DEL butom ans butom and register operations
+//Next to do: DEL botom ans butom and register operations
 
 DELboton.addEventListener('click',function(){
     console.log("click on DEL boton");
     pantalla.innerText="";
     screenString=screenString.slice(0,-1);
     pantalla.innerText=screenString;
+    restaurarElemTitilante();
 })
