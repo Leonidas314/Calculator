@@ -14,14 +14,14 @@ const equalButom= document.getElementById('equalBotton');//Capturar boton =
 const symbols = document.getElementsByClassName('symbol');//Captura boton clases symbol 
 const clearBoton = document.getElementById('clearBotton');
 const DELboton= document.getElementById('DELbotton');
-
+var cursor = document.getElementById('cursor')
 var disableScreen=false;
 
 //Necesito separar las acciones de efectos visuales de las acciones con funcionalidades??
 //Usar estrucutras condicionales para diferenciar funcionalidades de los botones?? 0 bien capturar por separado los diferentes botones y crear modulos separados para cad funcionalidad
 
 
-//--------------------Funciones------------------//////
+//--------------------Funciones para calcular expresiones productos y cocientes------------------//////
 //Function that filter the type expresion likely 
 function listProdCocc(string){
 return string.match(/\d+|[*/]|\d+/gy).join('');//This regular expression takes the mathematical expression only with numeric values and "*" "/" symbols, this ,between "+" "-" operators 
@@ -112,6 +112,10 @@ function tailExpresion (string){
         return string.replace(regex,''); //Ready to go!
     }
 }
+function titilarElemento() {
+    cursor.classList.toggle('titilar');
+}
+titilarElemento();
 
 
 
@@ -134,7 +138,7 @@ simbolNum.forEach(function(elemento){
     elemento.addEventListener('click',function(elemento ){
         if(disableScreen==false){
             const contenidoBoton=this.innerText;//Capturo el contenido alfanumerico de td (boton)
-            screenString=screenString+contenidoBoton;
+            screenString=screenString+contenidoBoton;//Aclaracion: screen string es una variable string, no se muesta en pantalla pero sirve para modificar el string que a continuacion mostraremos:
             const textoNodo =document.createTextNode(contenidoBoton);//Creo el nodo con el contenido capturado
             pantalla.appendChild(textoNodo)//creo un nodo nuevo "hijo" de pantalla
     
@@ -147,11 +151,17 @@ simbolNum.forEach(function(elemento){
 //Clear screen
 clearBoton.addEventListener('click',function(){
     pantalla.innerText="";
-    pantalla.innerText="0";
     screenString="";
     ceroDefault=true;
     disableScreen=false;
+    var cursor = document.createElement("p")
+    cursor.setAttribute("class","titilar")
+    cursor.textContent= "|"
+    pantalla.appendChild(cursor);
+    titilarElemento();
+
 })
+
 
 //Analysis
 
